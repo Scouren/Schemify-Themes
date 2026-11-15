@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # Presets override Schemify's base UI, so the gate reads the base first.
-      - run: curl -fsSL -o ui.records https://raw.githubusercontent.com/OpenFAT/Schemify/main/ui/default-plugin/ui.records
+      - run: curl -fsSL -o ui.records https://raw.githubusercontent.com/Scouren/Schemify-Plugins/main/ui/default-plugin/ui.records
       - run: python3 tools/gate.py ui.records
 
   plugin:

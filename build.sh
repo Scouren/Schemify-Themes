@@ -4,7 +4,10 @@
 # depend only on the sources, Cargo.lock and the toolchain.
 set -euo pipefail
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export CARGO_ENCODED_RUSTFLAGS="--remap-path-prefix=$here=/schemify-themes"$'\x1f'"--remap-path-prefix=${CARGO_HOME:-$HOME/.cargo}=/cargo"
+# A toolchain with the rust-src component names std's sources by their local path; map them back
+# to /rustc/<commit>, as a toolchain without it does.
+rustsrc="$(rustc --print sysroot)/lib/rustlib/src/rust=/rustc/$(rustc -vV | sed -n 's/^commit-hash: //p')"
+export CARGO_ENCODED_RUSTFLAGS="--remap-path-prefix=$here=/schemify-themes"$'\x1f'"--remap-path-prefix=${CARGO_HOME:-$HOME/.cargo}=/cargo"$'\x1f'"--remap-path-prefix=$rustsrc"
 cargo build --manifest-path "$here/Cargo.toml" --release --target wasm32-unknown-unknown
 wasm="${CARGO_TARGET_DIR:-$here/target}/wasm32-unknown-unknown/release/schemify_themes.wasm"
 size=$(wc -c <"$wasm")

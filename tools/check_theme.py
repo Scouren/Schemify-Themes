@@ -13,7 +13,11 @@ WIRE, TEXT, SYMBOL, PIN = 1, 3, 4, 5
 # Must match HILITE_LAYERS in crates/model/editor/src/editor/parity.rs.
 HILITE = [8, 9, 10, 12, 13, 15, 17, 21]
 # Chrome selectors whose colour is meaning (severity, pass/fail, diff state), exempt from the accent budget.
-STATUS = re.compile(r"^(check-|results-(pass|fail|yield)|docs-(value|unverified|staged))")
+# Saturated chrome colours allowed: the mockups' selection (2c4a80), link (4ea3e0) and button
+# accent (3d7be0) blues, one hue at three weights.
+ACCENTS = 3
+
+STATUS = re.compile(r"^(check-|chat-step-error|chat-(plus|minus|step-ok|step-bad|diff-add|diff-del)|results-(pass|fail|yield)|docs-(value|unverified|staged)|pkg-(ok|bad|new|row-on|row-new)|lay-(ok|bad|td-bad|net)|status-staged|store-grant|store-mode-ok|store-banner)")
 # Containers that never hold text: their fg is not read.
 NO_TEXT = {"window", "canvas"}
 COLOR_PROPS = {"bg", "fg", "hover-bg", "hover-fg", "active-bg", "active-fg", "accel-fg", "border-color"}
@@ -26,8 +30,15 @@ CVD = {
 
 
 def parse(paths):
-    """{selector: {prop: 'rrggbb'}} for style blocks; plus colour values on any other record."""
+    """{selector: {prop: 'rrggbb'}} for style blocks; plus colour values on any other record.
+    A value `@name` takes the last `color <name> <hex>` token of any file (as compose does)."""
     styles, other = {}, []
+    tokens = {}
+    for path in paths:
+        for line in open(path, encoding="utf-8"):
+            words = line.split()
+            if len(words) == 3 and words[0] == "color":
+                tokens[words[1]] = words[2]
     for path in paths:
         sel = None
         for line in open(path, encoding="utf-8"):
@@ -40,7 +51,8 @@ def parse(paths):
             words = line.split()
             if len(words) < 2 or words[0] not in COLOR_PROPS:
                 continue
-            hexv = words[1].strip('"').lstrip("#")[:6]
+            value = tokens.get(words[1][1:], "") if words[1].startswith("@") else words[1]
+            hexv = value.strip('"').lstrip("#")[:6]
             if not re.fullmatch(r"[0-9a-fA-F]{6}", hexv):
                 continue
             if sel is not None:
@@ -152,7 +164,7 @@ def check_chrome(styles, other):
         if chroma(v) > 30:
             loud.setdefault(v, []).append("(node)")
     detail = "; ".join(f"{v} {','.join(sorted(set(s)))}" for v, s in sorted(loud.items()))
-    report(len(loud) <= 2, f"chrome decorative saturated colours {len(loud)} (<= 2 accents): {detail}")
+    report(len(loud) <= ACCENTS, f"chrome decorative saturated colours {len(loud)} (<= {ACCENTS} accents): {detail}")
 
 
 def main():

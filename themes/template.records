@@ -2,8 +2,6 @@
 # tools/spicetify.py fills the tokens per scheme from themes/palettes.tsv; the plugin does the same at run time.
 
 
-
-
 style *
   fg @text
   accel-fg @muted
@@ -16,8 +14,12 @@ style window
 
 style menubar
   bg @panel
+  height 26
+  pad 9
+  gap 0
 
 style menu-title
+  pad 7
   hover-bg @hover
   active-bg @active
 
@@ -27,6 +29,7 @@ style menubar-dash
 style menubar-button
   bg @panel
   hover-bg @hover
+  pad 4
 
 style menu
   bg @raised
@@ -40,6 +43,9 @@ style separator
 
 style toolbar
   bg @panel
+  height 30
+  pad 6
+  gap 5
 
 style button
   hover-bg @active
@@ -47,28 +53,51 @@ style button
 
 style tabs
   bg @panel
+  height 22
+  pad 2
+  gap 2
 
 style tab
   bg @panel
   fg @muted
   active-bg @active
   active-fg @strong
+  hover-bg @hover
   border 0
+  radius 0
+  pad 6
+  height 21
 
 style tab-new
   bg @panel
   fg @muted
   border 0
+  radius 0
+  pad 6
+  height 21
 
 style canvas
   bg @bg
 
 style status
   bg @panel
+  height 24
+  pad 6
+  gap 8
 
 style status-field
   bg @bg
   border-color @border
+  width 46
+  font 12
+
+style status-right
+  fg @muted
+  font 12
+
+style status-staged
+  fg @ok
+  font 12
 
 style text_input
   bg @bg
@@ -95,6 +124,7 @@ style ctx-menu
 style list-row
   hover-bg @active
   active-bg @accent_bg
+  active-fg @strong
 
 style keys-panel
   bg @raised
@@ -102,23 +132,37 @@ style keys-panel
 style view-switch
   bg @raised
   border-color @border
-  radius 6
+  radius 0
+  pad 0
+  pad-y 0
+  gap 0
 
 style viewsw
   bg @raised
   fg @muted
   hover-bg @active
   hover-fg @strong
+  radius 0
+  pad 11
+  height 22
+  font 12
 
 style viewsw-on
   bg @accent_bg
   fg @strong
   hover-bg @accent_bg
+  radius 0
+  pad 11
+  height 22
+  font 12
 
 style viewsw-off
   fg @dim3
   hover-bg @raised
-
+  radius 0
+  pad 11
+  height 22
+  font 12
 
 style docs-pane
   bg @panel
@@ -175,7 +219,6 @@ style text-view
 style text-view-body
   fg @text
 
-
 style docs-value
   fg @ok
 
@@ -192,9 +235,239 @@ style docs-staged-bar
 style docs-staged
   fg @staged
 
-style bottom-pane
+style activity
+  bg @panel
+
+style activity-button
+  fg @dim2
+  hover-bg @panel
+  hover-fg @text
+  active-bg @panel
+  active-fg @text
+  mark 2
+
+style dock-hsplit
+  bg @border
+  hover-bg @accent
+
+style dock-vsplit
+  bg @border
+  hover-bg @accent
+
+style work
+  hover-bg @accent
+
+style dock
+  bg @panel
+
+style dock-bar
+  bg @panel
+  height 26
+  pad 12
+
+style dock-title
+  fg @muted
+  font 11
+  pad 0
+
+style dock-button
+  fg @muted
+  hover-bg @hover
+  pad 2
+
+style dock-tab
+  fg @muted
+  hover-fg @text
+  hover-bg @panel
+  active-fg @text
+  active-bg @panel
+  font 11
+  pad 4
+
+style dock-pane
+  bg @panel
+
+style dock-note
+  fg @muted
+
+style tree-row
+  fg @text
+  hover-bg @hover
+  active-bg @hover
+  active-fg @strong
+
+style tree-fill
+  fg @text
+  hover-bg @hover
+  active-bg @hover
+  active-fg @strong
+
+style tree-dim
+  fg @muted
+  hover-bg @hover
+
+style search-input
+  bg @bg
+  border-color @border
+
+style tree-arrow
+  fg @muted
+  hover-bg @panel
+
+style tree-indent
+  fg @muted
+
+style tree-mark
+  fg @muted
+  font 11
+  face mono
+
+style tree-section
+  fg @muted
+  font 11
+
+style scm-mark
+  fg @muted
+  font 11
+  face mono
+
+style chat-pane
+  bg @preview
+
+style chat-title
+  fg @text
+
+style chat-sharing
+  fg @accent
+
+style chat-meter
+  fg @muted
+
+style chat-icon
+  fg @muted
+  hover-fg @text
+
+style chat-rule
+  bg @border
+
+style chat-off
+  fg @text
+
+style chat-user
+  bg @raised
+  border-color @active
+
+style chat-chip
+  fg @text2
+  bg @hover
+  border-color @border
+
+style chat-chip-name
+  fg @text2
+
+style chat-chip-x
+  fg @muted
+  hover-fg @text
+
+style chat-user-text
+  fg @text
+
+style chat-thought-line
+  fg @muted
+
+style chat-text
+  fg @text
+
+style chat-step
+  hover-bg @panel
+
+style chat-step-error
+  hover-bg @panel
+
+style chat-step-verb
+  fg @muted
+
+style chat-step-name
+  fg @text2
+
+style chat-step-metric
+  fg @muted
+
+style chat-step-ok
+  fg @ok
+
+style chat-step-bad
+  fg @bad
+
+style chat-detail
+  fg @text2
+  bg @bg
+
+style chat-card
+  bg @panel
+  border-color @active
+
+style chat-card-title
+  fg @text
+
+style chat-card-body
+  fg @text
+
+style chat-card-state
+  fg @muted
+
+style chat-plus
+  fg @ok
+
+style chat-minus
+  fg @bad
+
+style chat-diff
+  fg @text2
+
+style chat-diff-add
+  fg @text2
+  bg @staged_bg
+
+style chat-diff-del
+  fg @text2
+  bg @bad_bg
+
+style chat-note
+  fg @muted
+
+style chat-task
+  fg @muted
+
+style chat-working
+  fg @muted
+
+style chat-stop
+  fg @text
+  hover-bg @hover
+  border-color @border
+
+style chat-dock
   bg @panel
   border-color @border
+
+style chat-review-text
+  fg @text
+
+style chat-input
+  fg @text
+  bg @panel
+  accel-fg @dim2
+
+style chat-pill
+  fg @text2
+  bg @hover
+  hover-bg @active
+
+style chat-send
+  fg @bg
+  bg @text
+  hover-bg @strong
 
 style bottom-bar
   bg @raised
@@ -236,7 +509,6 @@ style results-pick
 
 style results-pick-sel
   bg @accent_bg
-
 
 style canvas.dark.0
   fg @c_bg
@@ -300,7 +572,6 @@ style canvas.light.17
 style canvas.light.21
   fg @hl21
 
-
 style cell-pane
   bg @panel
   border-color @border
@@ -321,3 +592,507 @@ style cell-input
 style cell-body
   bg @bg
   border-color @border
+
+style settings
+  bg @panel
+  border-color @border
+  radius 8
+
+style settings-head
+  bg @panel
+
+style settings-title
+  fg @strong
+
+style settings-scopes
+  bg @panel
+
+style settings-scope
+  bg @panel
+  fg @muted
+  active-bg @panel
+  active-fg @strong
+
+style settings-x
+  hover-bg @hover
+
+style settings-search
+  bg @bg
+  border-color @border
+  radius 4
+
+style settings-nav
+  bg @panel
+
+style settings-nav-item
+  fg @text2
+  hover-bg @hover
+
+style settings-nav-on
+  active-bg @active
+  active-fg @strong
+  bg @active
+  fg @strong
+
+style settings-list
+  bg @bg
+
+style settings-section
+  fg @muted
+
+style settings-row
+  bg @bg
+  hover-bg @panel
+
+style settings-row-modified
+  bg @raised
+
+style settings-key
+  fg @strong
+
+style settings-mark
+  fg @accent
+
+style settings-lock
+  fg @muted
+
+style settings-reset
+  bg @active
+  border-color @border
+  radius 3
+
+style settings-doc
+  fg @text2
+
+style settings-hint
+  fg @muted
+
+style settings-input
+  bg @panel
+  border-color @border
+
+style settings-text
+  bg @panel
+  border-color @border
+
+style settings-choice
+  bg @raised
+  border-color @border
+  radius 3
+
+style settings-choice-on
+  active-bg @accent_bg
+  active-fg @strong
+  bg @accent_bg
+  fg @strong
+  border-color @accent
+  radius 3
+
+style settings-theme
+  bg @raised
+  border-color @border
+  radius 4
+
+style settings-theme-on
+  active-bg @accent_bg
+  active-fg @strong
+  bg @accent_bg
+  fg @strong
+  border-color @accent
+  radius 4
+
+style settings-foot
+  bg @panel
+
+style palette
+  bg @panel
+  border-color @border
+  radius 8
+
+style palette-search
+  bg @bg
+  fg @text
+  border-color @border
+  radius 4
+
+style palette-row
+  bg @panel
+  fg @text
+  hover-bg @hover
+  accel-fg @muted
+
+style palette-row-top
+  bg @accent_bg
+  fg @strong
+  hover-bg @hover
+  accel-fg @text2
+
+style palette-empty
+  fg @muted
+
+style palette-count
+  fg @muted
+
+style store
+  bg @preview
+  active-bg 0b0c0fb3
+  border-color @border
+
+style store-head
+  bg @panel
+
+style store-tabs
+  bg @panel
+
+style store-tab
+  bg @panel
+  fg @muted
+  active-bg @panel
+  active-fg @strong
+  hover-bg @raised
+  border-color @accent_bg
+
+style store-counts
+  fg @muted
+
+style store-check
+  fg @accent
+  bg @panel
+  hover-bg @border
+
+style store-banner
+  bg @warn_bg
+  fg @warn
+
+style store-mode-ok
+  fg @ok
+
+style store-mode-off
+  fg @dim2
+
+style store-x
+  fg @muted
+  hover-bg @hover
+
+style store-side
+  bg @panel
+
+style store-searchbar
+  bg @bg
+  border-color @border
+
+style store-searchicon
+  fg @muted
+  bg @bg
+  hover-bg @bg
+
+style store-search
+  fg @text
+  bg @bg
+
+style store-sort
+  fg @muted
+  hover-bg @raised
+  bg @bg
+
+style store-chip
+  bg @raised
+  fg @muted
+  border-color @active
+  hover-bg @hover
+
+style store-chip-on
+  bg @accent_bg
+  active-bg @accent_bg
+  fg @strong
+  active-fg @strong
+  border-color @accent_bg
+
+style store-section
+  fg @muted
+
+style store-tile
+  bg @panel
+
+style store-tile-on
+  bg @raised
+  active-fg @accent_bg
+
+style store-name
+  fg @text
+
+style store-ver
+  fg @muted
+
+style store-tag
+  fg @muted
+
+style store-tag-paid
+  fg @text
+
+style store-desc
+  fg @text2
+
+style store-meta
+  fg @muted
+
+style store-act
+  bg @accent_bg
+  fg @strong
+
+style store-act-ghost
+  border-color @border
+  fg @muted
+
+style store-rule
+  bg @raised
+
+style store-note
+  fg @dim2
+
+style store-hint
+  fg @muted
+
+style store-detail
+  bg @preview
+
+style store-d-name
+  fg @text
+
+style store-d-ver
+  fg @muted
+
+style store-d-meta
+  fg @muted
+
+style store-d-verified
+  fg @accent
+
+style store-d-vicon
+  fg @accent
+  bg @bg
+  hover-bg @bg
+
+style store-d-summary
+  fg @text2
+
+style store-ptab
+  fg @muted
+  active-fg @strong
+  hover-bg @raised
+  border-color @text
+  bg @preview
+  active-bg @preview
+
+style store-d-readme
+  fg @text2
+
+style store-f-title
+  fg @muted
+
+style store-price
+  fg @text
+
+style store-chip-s
+  bg @hover
+  fg @text
+
+style store-grant
+  bg @panel
+  fg @warn
+
+style store-k
+  fg @muted
+
+style store-v
+  fg @text
+
+style store-k-mono
+  fg @muted
+
+style store-v-mono
+  fg @text
+
+style store-code
+  bg @bg
+  border-color @border
+  fg @text2
+
+style store-preview
+  border-color @border
+
+style store-h3
+  fg @text
+
+style store-mode
+  border-color @border
+
+style store-mode-on
+  border-color @accent_bg
+  bg @raised
+
+style store-radio
+  fg @muted
+  bg @preview
+
+style store-radio-on
+  fg @accent
+  bg @raised
+
+style store-mode-t
+  fg @text
+
+style store-mode-s
+  fg @muted
+
+style store-mode-mono
+  fg @muted
+
+style store-field
+  bg @bg
+  border-color @border
+  fg @text
+
+style store-button
+  bg @hover
+  fg @text
+  hover-bg @border
+
+style store-button-accent
+  bg @accent_bg
+  fg @strong
+  hover-bg @accent_bg
+
+style store-caption
+  fg @muted
+
+style pkg-check
+  fg @muted
+  hover-bg @hover
+style pkg-filter
+  bg @bg
+  fg @muted
+  border-color @border
+style pkg-section-title
+  fg @muted
+style pkg-count
+  fg @muted
+style pkg-row
+  fg @text
+  accel-fg @muted
+  hover-bg @hover
+style pkg-row-on
+  fg @text
+  accel-fg @ok
+  hover-bg @hover
+style pkg-row-new
+  fg @text
+  accel-fg @accent
+  hover-bg @hover
+style pkg-row-sel
+  fg @strong
+  bg @hover
+  accel-fg @muted
+style pkg-row-on-sel
+  fg @strong
+  bg @hover
+  accel-fg @ok
+style pkg-row-new-sel
+  fg @strong
+  bg @hover
+  accel-fg @accent
+style pkg-detail
+  bg @panel
+style pkg-head
+  bg @panel
+  border 1
+  border-color @border
+style pkg-title
+  fg @text
+style pkg-sub
+  fg @muted
+style pkg-action
+  fg @text
+  hover-bg @hover
+style pkg-lua
+  border-color @border
+style pkg-field
+  bg @bg
+  fg @text
+  border-color @border
+style pkg-button
+  bg @raised
+  fg @text
+  border-color @border
+  hover-bg @hover
+style pkg-radio
+  fg @accent
+style pkg-dim
+  fg @muted
+style pkg-mono
+  fg @muted
+style pkg-grants
+  fg @muted
+style pkg-lua-file
+  fg @muted
+style pkg-code
+  fg @text2
+style pkg-ok
+  fg @ok
+style pkg-bad
+  fg @bad
+style pkg-new
+  fg @accent
+style lay-sub
+  fg @muted
+style lay-ok
+  fg @ok
+style lay-bad
+  fg @bad
+style lay-bad-sel
+  fg @text
+  bg @hover
+style lay-panel
+  bg @panel
+style lay-title
+  fg @text
+style lay-mono
+  fg @muted
+style lay-net
+  fg @warn
+style lay-tr-sel
+  bg @hover
+style lay-th-item
+  fg @muted
+style lay-th
+  fg @muted
+style lay-td-item
+  fg @text
+style lay-td
+  fg @text
+style lay-td-bad
+  fg @bad
+style lay-why
+  fg @muted
+style lay-actions
+  border-color @border
+style lay-button
+  bg @raised
+  fg @text
+  border-color @border
+  hover-bg @hover
+style lay-ask
+  bg @panel
+  border-color @border
+style lay-ask-key
+  fg @muted
+style lay-ask-field
+  bg @bg
+  fg @strong
+  border-color @border
+style canvas.dark.hilite
+  fg @warn
+style lay-ask-go
+  bg @accent_bg
+  fg @strong
+  hover-bg @accent_bg

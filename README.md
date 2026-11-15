@@ -2,26 +2,30 @@
 
 # Schemify-Themes
 
-**15 themes, 115 colour schemes for [Schemify](https://github.com/OpenFAT/Schemify).**<br>
-Each one recolours the editor's panels and the schematic canvas. Pick one from **View → Themes**.
+**15 themes, 115 colour schemes for the [Schemify](https://github.com/Scouren/Schemify-Releases) schematic editor.**<br>
+Each one recolours the editor's panels, dialogs and the schematic canvas. Pick one from **View → Themes**.
 
 <img src="screenshots/menu.png" alt="View → Themes in Schemify" width="820">
 
-[Install](#install) · [Themes](#themes) · [Gallery](#gallery) · [How it works](#how-it-works) · [License](#license)
+[Install](#install) · [Themes](#themes) · [Gallery](#gallery) · [How it works](#how-it-works) · [Development](#development) · [License](#license)
 
 </div>
 
 ## Install
 
-Add the plugin to your `init.lua`, then run `schemify pack sync`:
+The plugin is not in the Schemify store yet. Add it to your `~/.config/schemify/init.lua`:
 
 ```lua
 schemify.pack.add {
-  { src = "https://github.com/OpenFAT/Schemify-Themes.git" },
+  { src = "https://github.com/Scouren/Schemify-Themes" },
 }
 ```
 
+Run `schemify pack sync`, which clones the repository and installs the prebuilt `schemify_themes.wasm` it commits. The plugin needs no grants: it only contributes menu items, commands and styles.
+
 Then pick a scheme from **View → Themes → *theme* → *scheme***, or run its command (shown under each screenshot in the [gallery](#gallery)). **Schemify default** (`theme.off`) returns to the editor's own look.
+
+To use a local checkout instead, point `path` at it: `{ path = "~/src/Schemify-Themes" }`.
 
 ### Keep a theme across restarts
 
@@ -29,7 +33,7 @@ The plugin does not remember your choice. To start with a theme, load the plugin
 
 ```lua
 schemify.pack.add {
-  { src = "https://github.com/OpenFAT/Schemify-Themes.git", lazy = { cmd = "theme.sleek.nord" } },
+  { src = "https://github.com/Scouren/Schemify-Themes", lazy = { cmd = "theme.sleek.nord" } },
 }
 schemify.cmd("theme.sleek.nord")
 ```
@@ -368,15 +372,22 @@ Every scheme then has to pass Schemify's theme gate ([`tools/check_theme.py`](to
 
 When a colour misses a threshold, the generator moves it toward white or black until it passes, so its hue stays the theme's. When a surface makes the scheme's text unreadable, the surface moves back toward the background instead. When Modern's highlight set clashes with a background, a greedy search picks a new set. The gate's two-accent budget is reported but not enforced, because many of these themes are colourful by design.
 
-The plugin embeds the template and the palette table (about 90 KB of wasm) and fills in the chosen scheme at run time.
+The plugin embeds the template and the palette table (about 100 KB of wasm) and fills in the chosen scheme at run time.
 
-### Building and checking
+## Development
+
+You need Rust 1.95 with the `wasm32-unknown-unknown` target (`rust-toolchain.toml` pins it for rustup) and Python 3.
 
 ```sh
-curl -fsSL -o ui.records https://raw.githubusercontent.com/OpenFAT/Schemify/main/ui/default-plugin/ui.records
-python3 tools/gate.py ui.records   # every scheme must pass
-./build.sh                         # rebuilds schemify_themes.wasm (Rust 1.95, wasm32)
+cargo test --release               # every scheme expands, every command id is unique
+./build.sh                         # rebuilds schemify_themes.wasm (limit 200 KB); commit it with the change
+curl -fsSL -o ui.records https://raw.githubusercontent.com/Scouren/Schemify-Plugins/main/ui/default-plugin/ui.records
+python3 tools/gate.py ui.records   # every scheme must pass the theme gate over Schemify's base UI
 ```
+
+`tools/check_theme.py` and `themes/template.records` follow Schemify's own theme gate and Modern preset. When Schemify adds UI nodes, refresh both, then regenerate `themes/palettes.tsv` with the generator in `tools/` (its docstring names the source schemes; the pinned commit is in `tools/*.rev`).
+
+To check the plugin in the editor without a window, use a project whose init file adds this checkout (`schemify.pack.add { { path = "<checkout>" } }`) and run a theme command with a development build of Schemify: `schemify cmd --trust <project> theme.sleek.nord` exits 0, and an unknown scheme exits 2.
 
 To regenerate the screenshots, copy [`tools/shots.rs`](tools/shots.rs) into a Schemify checkout as `crates/view/app/tests/theme_shots.rs`, then make `Session::open_with` public in `tests/common/mod.rs`. Then run:
 
@@ -384,7 +395,9 @@ To regenerate the screenshots, copy [`tools/shots.rs`](tools/shots.rs) into a Sc
 THEMES_DIR=$PWD cargo test -p schemify-app --test theme_shots
 ```
 
-This loads the built plugin through the real editor, applies every scheme, checks that the canvas shows that scheme's background, and writes the PNGs. Downscale them into `screenshots/thumbs/` (640 px wide).
+This loads the built plugin through the real editor, applies every scheme, checks that the canvas shows that scheme's background, and writes the PNGs. Downscale them into `screenshots/thumbs/` (640 px wide). The screenshots predate the store and chat panels.
+
+See [CHANGELOG.md](CHANGELOG.md) for what changed.
 
 ## License
 
